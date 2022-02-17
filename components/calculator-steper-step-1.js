@@ -14,7 +14,16 @@ export class CalculatorSteperStep1 extends HTMLElement {
     constructor() {
         super();
 
-        const shadowRoot = this.attachShadow({ mode: 'open' });
+        this.attachShadow({ mode: 'close' });
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    render() {
+        const {shadowRoot} = this;
+
         shadowRoot.append(template.content.cloneNode(true));
     }
 }

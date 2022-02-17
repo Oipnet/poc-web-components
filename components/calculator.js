@@ -13,7 +13,14 @@ export class Calculator extends HTMLElement {
     constructor() {
         super();
 
-        const shadowRoot = this.attachShadow({ mode: 'closed' });
+        this.attachShadow({ mode: 'closed' });
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    render() {
         shadowRoot.append(template.content.cloneNode(true));
     }
 }

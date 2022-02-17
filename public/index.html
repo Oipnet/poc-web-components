@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="../js/app.js" defer type="module"></script>
+    <style>
+        my-calculator {
+            --color-text-primary: red;
+        }
+        my-calculator-steper {
+            --color-text-primary: green;
+            --margin: .5em;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">POC - Web components</h1>
+    <my-calculator>
+        <div slot="calculator-content">
+            <my-calculator-steper step="1">
+                <my-calculator-steper-step-1 slot="calculator-step-1"></my-calculator-steper-step-1>
+                <my-calculator-steper-step-2 slot="calculator-step-2"></my-calculator-steper-step-2>
+                <my-calculator-steper-step-3 slot="calculator-step-3"></my-calculator-steper-step-3>
+            </my-calculator-steper>
+        </div>
+    </my-calculator>
+</body>
+</html>

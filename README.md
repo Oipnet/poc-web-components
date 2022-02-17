@@ -7,6 +7,16 @@ Pour lancer le projet le plus simple est d'utiliser parcel (bundler identique a 
 
 `npx parcel src/index.html`
 
+## Besoin initial
+Pouvoir utiliser le même outil sur plusieurs applications.
+
+- Chaque application doit pouvoir personnaliser le design de l'outil
+- On doit pouvoir surcharger l'outil pour une application
+
+Ne pas dupliquer le code sur chaque application.
+
+Les composants doivent pouvoir fonctionner de manière autonome et effectuer des appel à une API.
+
 ## Presentation
 - Le dossier component : Contient les composant de notre application
 - Le dossier js : contient le javascript de notre application
@@ -26,3 +36,4 @@ La personnalisation du design se fait grâce a l'utilisation de variable CSS car
 - Les appels API
 - Améliorer la personalisation du design
 - Séparer le html du js dans les composants
+- Comment réutiliser les compsant au sein des différentes application en ayant besoin (package npm, clone du repo...)

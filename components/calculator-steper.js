@@ -34,7 +34,7 @@ export class CalculatorSteper extends HTMLElement {
     connectedCallback() {
         this.render()
 
-        this.addEventListener()
+        this.addEventListener();
     }
 
     disconnectedCallback() {
@@ -50,7 +50,7 @@ export class CalculatorSteper extends HTMLElement {
         if (this.steps.length == 0) {
             return;
         }
-        
+
         switch (name) {
             case 'step':
                 this.showStep(newValue);

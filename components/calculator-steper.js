@@ -66,7 +66,6 @@ export class CalculatorSteper extends HTMLElement {
     }
 
     showStep = (step) => {
-        console.log(this.steps);
         this.steps.forEach(step => {
             step.classList.add('hidden')
         });

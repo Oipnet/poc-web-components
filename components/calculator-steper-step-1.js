@@ -14,7 +14,6 @@ export class CalculatorSteperStep1 extends HTMLElement {
 
     render = async () => {
         const { HTMLTemplate, styleTemplate } = await templateExtractor(template);
-        console.log(HTMLTemplate);
         const { shadowRoot } = this;
     
         shadowRoot.append(HTMLTemplate.content.cloneNode(true));

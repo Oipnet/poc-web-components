@@ -1,0 +1,23 @@
+<style>
+    .hidden {
+        display: none;
+    }
+
+    * {
+        color: var(--color-text-primary);
+    }
+
+    .calculator-actions {
+        margin-top: var(--margin);
+    }
+</style>
+<template>
+    <div>
+        <slot name="calculator-step-1"></slot>
+        <slot name="calculator-step-2" class="hidden"></slot>
+        <slot name="calculator-step-3" class="hidden"></slot>
+        <div class="calculator-actions">
+            <button id="previous-step">Previous</button><span id="current-step"></span><button id="next-step">Next</button>
+        </div>
+    </div>
+</template>

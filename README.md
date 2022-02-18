@@ -35,5 +35,6 @@ La personnalisation du design se fait grâce a l'utilisation de variable CSS car
 - La communication entre les composants
 - Les appels API
 - Améliorer la personalisation du design
-- Séparer le html du js dans les composants
+- ~~Séparer le html du js dans les composants~~
+- Afficher un attribut dans le template et dynamiser le render
 - Comment réutiliser les compsant au sein des différentes application en ayant besoin (package npm, clone du repo...)

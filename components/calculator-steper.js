@@ -1,45 +1,44 @@
-const template = document.createElement('template');
-template.innerHTML = `
-    <style>
-        .hidden {
-            display: none;
-        }
-
-        * {
-            color: var(--color-text-primary);
-        }
-
-        .calculator-actions {
-            margin-top: var(--margin);
-        }
-    </style>
-    <div>
-        <slot name="calculator-step-1"></slot>
-        <slot name="calculator-step-2" class="hidden"></slot>
-        <slot name="calculator-step-3" class="hidden"></slot>
-        <div class="calculator-actions">
-            <button id="previous-step">Previous</button><button id="next-step">Next</button>
-        </div>
-    </div>
-`;
+import templateExtractor from './templateExtractor';
+import template from './templates/calculator-steper.template.html';
 
 export class CalculatorSteper extends HTMLElement {
+    steps = [];
+
     constructor() {
         super();
-        this.steps = [];
 
         this.attachShadow({ mode: 'open' });
     }
 
     connectedCallback() {
-        this.render()
-
-        this.addEventListener();
+        this.render();
     }
 
-    disconnectedCallback() {
-        this.shadowRoot.querySelector('#next-step').removeEventListener('click', this.nextStep);
-        this.shadowRoot.querySelector('#previous-step').removeEventListener('click', this.previousStep);
+    render = async () => {
+        const { HTMLTemplate, styleTemplate } = await templateExtractor(template);
+
+        const { shadowRoot } = this;
+    
+        shadowRoot.append(HTMLTemplate.content.cloneNode(true));
+        shadowRoot.appendChild(styleTemplate);
+
+        this.steps = [... shadowRoot.querySelectorAll('slot')];
+
+        shadowRoot.querySelector('#current-step').innerHTML = this.step;
+
+        this.addEventListener()
+    }
+
+    addEventListener = () => {
+        const { shadowRoot } = this;
+
+        shadowRoot.querySelector('#next-step').addEventListener('click', this.nextStep);
+        shadowRoot.querySelector('#previous-step').addEventListener('click', this.previousStep);
+    }
+
+    disconnectedCallback = () => {
+        this.shadowRoot.querySelector('next-step').removeEventListener('click', this.nextStep);
+        this.shadowRoot.querySelector('previous-step').removeEventListener('click', this.previousStep);
     }
 
     static get observedAttributes() {
@@ -65,23 +64,9 @@ export class CalculatorSteper extends HTMLElement {
     set step(step) {
         this.setAttribute('step', step);
     }
-    
-    render() {
-        const {shadowRoot} = this;
 
-        shadowRoot.append(template.content.cloneNode(true));
-        this.steps = [... shadowRoot.querySelectorAll('slot')];
-    }
-
-    addEventListener() {
-        this.nextStep = this.nextStep.bind(this);
-        this.shadowRoot.querySelector('#next-step').addEventListener('click', this.nextStep);
-
-        this.previousStep = this.previousStep.bind(this);
-        this.shadowRoot.querySelector('#previous-step').addEventListener('click', this.previousStep);
-    }
-
-    showStep(step) {
+    showStep = (step) => {
+        console.log(this.steps);
         this.steps.forEach(step => {
             step.classList.add('hidden')
         });
@@ -89,20 +74,24 @@ export class CalculatorSteper extends HTMLElement {
         this.steps[step - 1].classList.remove('hidden');
     }
 
-    nextStep() {
+    nextStep = () => {
+        const { shadowRoot } = this;
         if (this.step == this.steps.length) { 
             alert('Fin');
             return;
         }
         ++this.step;
+        shadowRoot.querySelector('#current-step').innerHTML = this.step;
     }
 
-    previousStep() {
+    previousStep = () => {
+        const { shadowRoot } = this;
         if (this.step == 1) { 
             alert('Debut');
             return;
         }
         --this.step;
+        shadowRoot.querySelector('#current-step').innerHTML = this.step;
     }
 }
 

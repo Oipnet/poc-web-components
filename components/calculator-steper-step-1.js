@@ -1,30 +1,24 @@
-const template = document.createElement('template');
-template.innerHTML = `
-    <style>
-        div {
-            margin-bottom: var(--margin);
-        }
-    </style>
-    <div>
-        step 1
-    </div>
-`;
+import templateExtractor from "./templateExtractor";
+import template from './templates/calculator-steper-step-1.template.html';
 
 export class CalculatorSteperStep1 extends HTMLElement {
     constructor() {
         super();
 
-        this.attachShadow({ mode: 'close' });
+        this.attachShadow({ mode: 'open' });
     }
 
     connectedCallback() {
         this.render();
     }
 
-    render() {
-        const {shadowRoot} = this;
-
-        shadowRoot.append(template.content.cloneNode(true));
+    render = async () => {
+        const { HTMLTemplate, styleTemplate } = await templateExtractor(template);
+        console.log(HTMLTemplate);
+        const { shadowRoot } = this;
+    
+        shadowRoot.append(HTMLTemplate.content.cloneNode(true));
+        shadowRoot.appendChild(styleTemplate);
     }
 }
 

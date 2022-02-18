@@ -1,28 +1,24 @@
-const template = document.createElement('template');
-template.innerHTML = `
-    <style>
-        .title {
-            color: var(--color-text-primary);
+import templateExtractor from './templateExtractor';
+import template from './templates/calculator.template.html';
+
+(async () => {
+    class Calculator extends HTMLElement {
+        constructor() {
+            super();
         }
-    </style>
-    <h1 id="title" class="title">Calculator</h1>
-    <slot name="calculator-content"></slot>
-`;
-
-export class Calculator extends HTMLElement {
-    constructor() {
-        super();
-
-        this.attachShadow({ mode: 'closed' });
+    
+        connectedCallback() {
+            this.render();
+        }
+    
+        async render() {
+            const { HTMLTemplate, styleTemplate } = await templateExtractor(template);
+    
+            const shadowRoot = this.attachShadow({ mode: 'closed' });
+            shadowRoot.append(HTMLTemplate.content.cloneNode(true));
+            shadowRoot.appendChild(styleTemplate);    
+        }
     }
 
-    connectedCallback() {
-        this.render();
-    }
-
-    render() {
-        shadowRoot.append(template.content.cloneNode(true));
-    }
-}
-
-window.customElements.define('my-calculator', Calculator);
+    customElements.define('my-calculator', Calculator);
+})();
